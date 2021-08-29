@@ -10,3 +10,5 @@ certbot_domains:
 
 # An email-addres is required to register.
 certbot_email: your_email_address@example.com
+
+certbot_redirect: yes

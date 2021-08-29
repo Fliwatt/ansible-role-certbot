@@ -11,7 +11,7 @@
     name: "{{ certbot_packages }}"
     state: present
 
-- name: get and install certificates (Standalone)
+- name: get and install certificates (Redirect)
   ansible.builtin.command:
     cmd: |
       certbot certonly --noninteractive
@@ -22,9 +22,9 @@
     creates: /etc/letsencrypt/accounts
   when:
     - certbot_ci_mode is not defined
-    - certbot_system == "standalone"
+    - certbot_redirect == "yes"
 
-- name: get and install certificates (Managed)
+- name: get and install certificates (No-Redirect)
   ansible.builtin.command:
     cmd: |
       certbot --noninteractive
@@ -36,7 +36,7 @@
     creates: /etc/letsencrypt/accounts
   when:
     - certbot_ci_mode is not defined
-    - certbot_system != "standalone"
+    - certbot_redirect != "yes"
 
 - name: set up automatic renewal
   ansible.builtin.cron:
